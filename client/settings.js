@@ -31,6 +31,7 @@ Meteor.settings.public = {
     "hi": {"name": "हिन्दी, हिंदी", "path": "hi/hi-IN.json"},
     "id": {"name": "Bahasa Indonesia", "path": "id/id-ID.json"},
     "it": {"name": "Italiano", "path": "it/it-IT.json"},
+    "ko": {"name": "한국어", "path": "ko/ko-KR.json"},
     "nl": {"name": "Nederlands", "path": "nl/nl-NL.json"},
     "pt-BR": {"name": "Português (BR)", "path": "pt-BR/pt-BR.json"},
     "pl": {"name": "Polski", "path": "pl/pl-PL.json"},
@@ -42,7 +43,7 @@ Meteor.settings.public = {
 }
 
 // custom settings loaded from json
-$.get('https://d.tube/DTube_files/settings.json', function(json, result) {
+$.get('/DTube_files/settings.json', function(json, result) {
   if (result == 'success') {
     Meteor.settings.public = json
     Session.set('remoteSettings', Meteor.settings.public.remote)
