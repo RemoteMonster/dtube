@@ -45,8 +45,8 @@ Meteor.startup(function(){
 
   // init steem connect
   var sc2 = sc2sdk.Initialize({
-    app: 'dtube.app',
-    callbackURL: 'https://d.tube/#!/sc2login',
+    app: 'ctube.app',
+    callbackURL: 'http://localhost:3000/#!/sc2login',
     accessToken: 'access_token'
   });
   window.sc2 = sc2
