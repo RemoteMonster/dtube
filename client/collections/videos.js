@@ -185,7 +185,7 @@ Videos.getVideosByBlog = function(author, limit, cb) {
 
 Videos.getVideosBy = function(type, limit, cb) {
   var query = {
-    "tag": "dtube",
+    "tag": "ctube",
     "limit": Session.get('remoteSettings').loadLimit,
     "truncate_body": 1
   }

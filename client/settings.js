@@ -11,11 +11,11 @@ Meteor.settings.public = {
     "upldr": ["cluster"],
     "localhost": false
   },
-  "app": "dtube/0.8",
+  "app": "ctube/0.8",
   "beneficiary": "dtube",
   "dmca": true,
   "pageTitleSeparator": "-",
-  "appName": "DTube",
+  "appName": "CTube",
   "ipfs": "",
   "lang": {
     "bn": {"name": "বাংলা", "path": "bn/bn-BD.json"},
@@ -39,8 +39,14 @@ Meteor.settings.public = {
     "ru": {"name": "русский", "path": "ru/ru-RU.json"},
     "sl": {"name": "Slovenščina", "path": "sl/sl-SI.json"},
     "tr": {"name": "Türkçe", "path": "tr/tr-TR.json"}
+  },
+  "remon": {
+    "credential": {
+      "key": "6b72e37ca71bab3eab28b0740fd9abdf03b1e87e017db006",
+      "serviceId": "jinho@casto.tv"
+    }
   }
-}
+};
 
 // custom settings loaded from json
 $.get('/DTube_files/settings.json', function(json, result) {
