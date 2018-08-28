@@ -29,10 +29,11 @@ Template.livestreams.helpers({
     }
   })
   
-  Template.livestreams.rendered = function () {
+Template.livestreams.rendered = function () {
+  Meteor.setInterval(()=>{
     Livestreams.getStreams(function(err) {
-        if (err) console.log('Error fetching livestreams list')
-        $('.ui.infinite')
+      if (err) console.log('Error fetching livestreams list')
+      $('.ui.infinite')
         .visibility({
           once: false,
           observeChanges: true,
@@ -53,5 +54,5 @@ Template.livestreams.helpers({
     Livestreams.getStreamsByHot(100, function(err) {
       if (err) console.log(err)
     })
-  }
-  
+  }, 1000);
+}
