@@ -48,11 +48,18 @@ Livestreams.verifyKey = function(block, tx_num, cb) {
     }
 }
 
+const getConfig = ()=> ({
+  credential: Meteor.settings.public.remon.credential,
+  media: {
+    audio: true,
+    video: true,
+    recvonly: true
+  }
+});
+
 Livestreams.getStreams = function(cb) {
   const callsFetcher = new Remon({
-    config: {
-      credential: Meteor.settings.public.remon.credential
-    }
+    config: getConfig()
   });
 
   callsFetcher.fetchCasts()
@@ -66,7 +73,8 @@ Livestreams.getStreams = function(cb) {
           viewer: 0,
           duration: 99999999
         })
-      })
+      });
+      cb(null);
     });
 
   // var xhr = new XMLHttpRequest();
@@ -98,9 +106,7 @@ Livestreams.getStreams = function(cb) {
 
 Livestreams.getStreamsByCreated = function(limit, cb) {
   const callsFetcher = new Remon({
-    config: {
-      credential: Meteor.settings.public.remon.credential
-    }
+    config: getConfig()
   });
 
   callsFetcher.fetchCasts()
@@ -123,13 +129,13 @@ Livestreams.getStreamsByCreated = function(limit, cb) {
           info: {
             author: o.id,
             livestream: true,
-            permlink: "1111111",
+            permlink: o.id,
             snaphasH: "QmVqhhNGPTJFb1MrrXAkhLtaw8ATJnx3zAVXnJTPifsbW2",
             title: o.id,
           },
           net_rshare: 0,
           pending_payout_value: "0.000 SBD",
-          permlink: "1111111",
+          permlink: o.id,
           reblogged_by: [],
           source: "chainByCreated",
           total_payout_value: "0.000 SBD"
