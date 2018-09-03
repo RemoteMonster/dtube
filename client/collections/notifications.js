@@ -1,6 +1,5 @@
 Notifications = new Mongo.Collection(null)
 notificationsObserver = new PersistentMinimongo2(Notifications, 'notifications');
-var moment = require('moment')
 
 Notifications.ws = new WebSocket('wss://api.busy.org/')
 
