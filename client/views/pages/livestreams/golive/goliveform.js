@@ -1,3 +1,5 @@
+import Remon from '@remotemonster/sdk';
+
 Template.goliveform.rendered = function () {
     $('.ui.multiple.dropdown').dropdown({
       allowAdditions: true,
@@ -37,83 +39,83 @@ Template.goliveform.rendered = function () {
 }
 
 Template.goliveform.events({
-    'submit .form': function (event) {
-      event.preventDefault()
-    },
-    'click .uploadsubmit': function (event) {
-      event.preventDefault()
-      var tags = Template.uploadform.parseTags($('input[name=tags]')[0].value)
-      var article = Template.uploadform.generateVideo(tags[1])
-      if (!article) return
-  
-      // publish on blockchain !!
-      $('#step3load').show()
-      
-      var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
-      var author = article.info.author
-      var permlink = article.info.permlink
-      var title = article.info.title
-      var body = $('textarea[name=body]')[0].value
-  
-      if (!body || body.length < 1)
-        body = Template.upload.genBody(author, permlink, title, article.info.snaphash, article.content.videohash, article.content.description)
-      else
-        body = Template.upload.genBody(author, permlink, title, article.info.snaphash, article.content.videohash, body)
-  
-  
-      var jsonMetadata = {
-        video: article,
-        tags: tags[0],
-        app: Meteor.settings.public.app
-      }
-  
-      var percent_steem_dollars = 10000
-      if ($('input[name=powerup]')[0] && $('input[name=powerup]')[0].checked)
-        percent_steem_dollars = 0
-  
-      var operations = [
-        ['comment',
-          {
-            parent_author: '',
-            parent_permlink: tags[0][0],
-            author: author,
-            permlink: permlink,
-            title: title,
-            body: body,
-            json_metadata: JSON.stringify(jsonMetadata)
-          }
-        ],
-        ['comment_options', {
+  'submit .form': function (event) {
+    event.preventDefault()
+  },
+  'click .uploadsubmit': function (event) {
+    event.preventDefault();
+    var tags = Template.uploadform.parseTags($('input[name=tags]')[0].value)
+    var article = Template.uploadform.generateVideo(tags[1])
+    if (!article) return
+
+    // publish on blockchain !!
+    $('#step3load').show()
+
+    var wif = Users.findOne({ username: Session.get('activeUsername') }).privatekey
+    var author = article.info.author
+    var permlink = article.info.permlink
+    var title = article.info.title
+    var body = $('textarea[name=body]')[0].value
+
+    if (!body || body.length < 1)
+      body = Template.upload.genBody(author, permlink, title, article.info.snaphash, article.content.videohash, article.content.description)
+    else
+      body = Template.upload.genBody(author, permlink, title, article.info.snaphash, article.content.videohash, body)
+
+
+    var jsonMetadata = {
+      video: article,
+      tags: tags[0],
+      app: Meteor.settings.public.app
+    }
+
+    var percent_steem_dollars = 10000
+    if ($('input[name=powerup]')[0] && $('input[name=powerup]')[0].checked)
+      percent_steem_dollars = 0
+
+    var operations = [
+      ['comment',
+        {
+          parent_author: '',
+          parent_permlink: tags[0][0],
           author: author,
           permlink: permlink,
-          max_accepted_payout: '1000000.000 SBD',
-          percent_steem_dollars: percent_steem_dollars,
-          allow_votes: true,
-          allow_curation_rewards: true,
-          extensions: [
-            [0, {
-              beneficiaries: [{
-                account: Meteor.settings.public.beneficiary,
-                weight: Session.get('remoteSettings').dfees
-              }]
-            }]
-          ]
-        }]
-      ];
-      $('#step3load').show()
-      console.log(operations)
-      broadcast.send(
-        operations,
-        function (e, r) {
-          $('#step3load').hide()
-          if (e) {
-            console.log(e)
-            toastr.error(Meteor.blockchainError(e), translate('ERROR_TITLE'))
-          } else {
-            Session.set('uploadedVideo', { author: author, permlink: permlink })
-            FlowRouter.go('/v/' + author + "/" + permlink)
-          }
+          title: title,
+          body: body,
+          json_metadata: JSON.stringify(jsonMetadata)
         }
-      )
-    }
-  })
+      ],
+      ['comment_options', {
+        author: author,
+        permlink: permlink,
+        max_accepted_payout: '1000000.000 SBD',
+        percent_steem_dollars: percent_steem_dollars,
+        allow_votes: true,
+        allow_curation_rewards: true,
+        extensions: [
+          [0, {
+            beneficiaries: [{
+              account: Meteor.settings.public.beneficiary,
+              weight: Session.get('remoteSettings').dfees
+            }]
+          }]
+        ]
+      }]
+    ];
+    $('#step3load').show()
+    console.log(operations)
+    broadcast.send(
+      operations,
+      function (e, r) {
+        $('#step3load').hide()
+        if (e) {
+          console.log(e)
+          toastr.error(Meteor.blockchainError(e), translate('ERROR_TITLE'))
+        } else {
+          Session.set('uploadedVideo', { author: author, permlink: permlink })
+          FlowRouter.go('/v/' + author + "/" + permlink)
+        }
+      }
+    )
+  }
+})
