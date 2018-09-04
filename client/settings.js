@@ -1,4 +1,5 @@
 // default settings
+Meteor.settings = Meteor.settings || {};
 Meteor.settings.public = {
   "remote": {
     "dfees": 2500,

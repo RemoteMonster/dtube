@@ -1,6 +1,7 @@
 // controls the page title display
 
 Deps.autorun(function(){
+  if (!Meteor.settings || !Meteor.settings.public) return;
   if (!Session.get("pageTitle") || typeof Session.get("pageTitle") === 'undefined' || Session.get("pageTitle").length == 0) {
     if (typeof Meteor.settings.public.appName === 'undefined')
       return
