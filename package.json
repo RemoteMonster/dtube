@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "desktop": "meteor-desktop"
+    "desktop": "meteor-desktop",
+    "build": "meteor npx meteor-build-client ../ctube_build -p \"\" -s ./public/DTube_files/settings.json -u \"\"" 
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.55",
