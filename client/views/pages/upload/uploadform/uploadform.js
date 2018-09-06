@@ -58,7 +58,7 @@ Template.uploadform.parseTags = function (raw) {
     //tags.push('dtube-'+raw.split(',')[i].toLowerCase())
   }
   if (FlowRouter.current().route.name == 'golive')
-    tags.push('dtv')
+    tags.push('ctv')
   else
     tags.push(Meteor.settings.public.beneficiary)
   return [tags, videoTags]
