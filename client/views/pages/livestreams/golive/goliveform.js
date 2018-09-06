@@ -44,6 +44,7 @@ Template.goliveform.events({
   },
   'click .uploadsubmit': function (event) {
     event.preventDefault();
+    var streamId = session.get('streamId');
     var tags = Template.uploadform.parseTags($('input[name=tags]')[0].value)
     var article = Template.uploadform.generateVideo(tags[1])
     if (!article) return
@@ -66,7 +67,8 @@ Template.goliveform.events({
     var jsonMetadata = {
       video: article,
       tags: tags[0],
-      app: Meteor.settings.public.app
+      app: Meteor.settings.public.app,
+      streamId: streamId
     }
 
     var percent_steem_dollars = 10000
