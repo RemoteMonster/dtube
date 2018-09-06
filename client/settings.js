@@ -13,7 +13,7 @@ Meteor.settings.public = {
     "localhost": false
   },
   "app": "ctube/0.8",
-  "beneficiary": "dtube",
+  "beneficiary": "acidsound",
   "dmca": true,
   "pageTitleSeparator": "-",
   "appName": "CTube",
