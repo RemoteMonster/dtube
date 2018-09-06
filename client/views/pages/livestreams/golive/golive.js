@@ -6,11 +6,11 @@ Template.upload.rendered = function () {
 
 Template.golive.genBody = function (author, permlink, title, snaphash, videohash, description) {
   var body = '<center>'
-  body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'>'
+  body += '<a href=\''+location.origin+'/#!/v/' + author + '/' + permlink + '\'>'
   body += '<img src=\'https://ipfs.io/ipfs/' + Session.get('overlayHash') + '\'></a></center><hr>\n\n'
   body += description
   body += '\n\n<hr>'
-  body += '<a href=\'https://d.tube/#!/v/' + author + '/' + permlink + '\'> ▶️ DTube</a><br />'
+  body += '<a href=\''+location.origin+'/#!/v/' + author + '/' + permlink + '\'> ▶️ CTube</a><br />'
   body += '<a href=\'https://ipfs.io/ipfs/' + videohash + '\'> ▶️ IPFS</a>'
   return body
 }

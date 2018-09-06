@@ -63,8 +63,8 @@ Template.video.helpers({
     return Session.get('activeUsername')
   },
   convertTag:function(tag){
-    var tagWithoutDtube= tag.replace("dtube-", "")
-    return tagWithoutDtube
+    var tagWithoutCtube= tag.replace("ctube-", "")
+    return tagWithoutCtube
   }
 })
 
@@ -206,7 +206,7 @@ Template.video.seekTo = function (seconds) {
 Template.video.loadState = function () {
   if (isLoadingState) return
   isLoadingState = true
-  steem.api.getState('/dtube/@' + FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink"), function (err, result) {
+  steem.api.getState('/ctube/@' + FlowRouter.getParam("author") + '/' + FlowRouter.getParam("permlink"), function (err, result) {
     if (err) throw err;
     console.log('Loaded video from chain', result)
     isLoadingState = false
