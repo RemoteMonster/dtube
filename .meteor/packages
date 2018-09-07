@@ -30,3 +30,4 @@ fastclick
 babel-compiler@7.1.1
 juliancwirko:postcss@=1.2.0
 underscore
+qualia:reval
